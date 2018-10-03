@@ -48,18 +48,19 @@ io.on('connection', function (socket) {
 
     function handleMouse(event) {
         let change = false;
-        let currentX = Math.floor(event.x / portionX)
+        let currentX = Math.floor((event.x - c.offset.x) / portionX)
         currentX = restrain(currentX)
         if (currentX != prevX) {
             change = true
             prevX = currentX
         }
-        let currentY = Math.floor(event.y / portionY)
+        let currentY = Math.floor((event.y - c.offset.y) / portionY)
         currentY = restrain(currentY)
         if (currentY != prevY) {
             change = true
             prevY = currentY
         }
+
         if (change) {
             io.emit("mouse", {
                 x: currentX,
